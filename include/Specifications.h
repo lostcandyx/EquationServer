@@ -1,5 +1,5 @@
-#ifndef _SPECIFICATION_
-#define _SPECIFICATION_
+#ifndef _SPECIFICATION_H_
+#define _SPECIFICATION_H_
 
 #define     ROD_DISTANCE        9       // 相邻两臂间距
 #define     PLATFORM_RADIUS     25      // 固定平台等效半径
@@ -10,4 +10,5 @@
 #define     ROD_B_LENGTH        25      // B杆长度
 
 #define     PI                  3.1415926
+
 #endif

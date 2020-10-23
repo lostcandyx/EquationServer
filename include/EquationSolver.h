@@ -1,9 +1,9 @@
-#ifndef _EQUATION_SOLVER_
-#define _EQUATION_SOLVER_
+#ifndef _EQUATIONSOLVER_H_
+#define _EQUATIONSOLVER_H_
 
 #include "Specifications.h"
-#include "Point.h"
 #include "Hexagon.h"
+#include "Matrix.h"
 #include <iostream>
 
 class EquationSolver
@@ -25,10 +25,6 @@ public:
     bool Process(); 
 };
 
-struct Anglex6
-{
-    double a[6];
-};
-typedef Anglex6 AngleSet;
+
 
 #endif

@@ -1,4 +1,7 @@
-#include "Point.h"
+#ifndef _HEXAGON_H_
+#define _HEXAGON_H_
+
+#include "Matrix.h"
 
 class Hexagon
 {
@@ -10,9 +13,10 @@ private:
 public:
     Hexagon(Point3D center,double a,double r);
     Hexagon(double x,double y,double z,double a,double r);
+    Hexagon();
     ~Hexagon();
 
     void ComputeVertex();
 };
 
-
+#endif

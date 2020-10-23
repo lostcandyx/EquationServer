@@ -1,8 +1,75 @@
 #ifndef _MATRIX_H_
 #define _MATRIX_H_
 
-#include "Vector.h"
-#include "Point.h"
+#include <math.h>
+
+struct Anglex6
+{
+    double a[6];
+};
+typedef Anglex6 AngleSet;
+
+class Point2D
+{
+  private:
+  protected:
+  public:
+	double X;
+	double Y;
+
+	Point2D();
+	Point2D(double x, double y);
+	Point2D(const Point2D &point);
+	~Point2D();
+
+	static double Distance(Point2D &pt1, Point2D &pt2);
+
+	Point2D &operator=(Point2D &point);
+	Point2D &operator+=(Point2D &point);
+	Point2D &operator-=(Point2D &point);
+	Point2D &operator+=(double value);
+	Point2D &operator-=(double value);
+	Point2D &operator*=(double value);
+	Point2D &operator/=(double value);
+	Point2D operator+(Point2D &point);
+	Point2D operator-(Point2D &point);
+	Point2D operator+(double value);
+	Point2D operator-(double value);
+	Point2D operator*(double value);
+	Point2D operator/(double value);
+};
+
+class Point3D
+{
+  private:
+  protected:
+  public:
+	double X;
+	double Y;
+	double Z;
+
+	Point3D();
+	Point3D(double x, double y, double z);
+	Point3D(const Point3D &point);
+	~Point3D();
+
+	static double Distance(Point3D &pt1, Point3D &pt2);
+
+	Point3D &operator=(const Point3D &point);
+	Point3D &operator+=(Point3D &point);
+	Point3D &operator-=(Point3D &point);
+	Point3D &operator+=(double value);
+	Point3D &operator-=(double value);
+	Point3D &operator*=(double value);
+	Point3D &operator/=(double value);
+	Point3D operator+(Point3D &point);
+	Point3D operator-(Point3D &point);
+	Point3D operator+(double value);
+	Point3D operator-(double value);
+	Point3D operator*(double value);
+	Point3D operator/(double value);
+};
+
 class Matrix3D
 {
 public:
@@ -38,16 +105,14 @@ public:
 
 	void Identity();
 	bool Inverse();
-	void Scale(Vector3D scale);
-	void Rotate(double angle, Vector3D axis);
-	void Translate(Vector3D offset);
+	//void Rotate(double angle, Vector3D axis);
 	Point3D Transform(Point3D point);
-	Vector3D Transform(Vector3D vector);
-	void SetTransform(Point3D point, Vector3D angle);
+	void SetTransform(Point3D point, Point3D angle);
 
 	Matrix3D &operator=(const Matrix3D &mat);
 	Matrix3D &operator*=(const Matrix3D &mat);
 	Matrix3D operator*(const Matrix3D &mat);
 };
+
 
 #endif

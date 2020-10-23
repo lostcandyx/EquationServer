@@ -1,5 +1,231 @@
-#include <math.h>
 #include "Matrix.h"
+
+Point2D::Point2D()
+{
+	X = 0;
+	Y = 0;
+}
+
+Point2D::Point2D(double x, double y)
+{
+	X = x;
+	Y = y;
+}
+
+Point2D::Point2D(const Point2D &point)
+{
+	X = point.X;
+	Y = point.Y;
+}
+
+Point2D::~Point2D()
+{
+}
+
+double Point2D::Distance(Point2D &pt1, Point2D &pt2)
+{
+	double x = pt1.X - pt2.X;
+	double y = pt1.Y - pt2.Y;
+	return sqrt(x * x + y * y);
+}
+
+Point2D &Point2D::operator=(Point2D &point)
+{
+	X = point.X;
+	Y = point.Y;
+	return *this;
+}
+
+Point2D &Point2D::operator+=(Point2D &point)
+{
+	X += point.X;
+	Y += point.Y;
+	return *this;
+}
+
+Point2D &Point2D::operator-=(Point2D &point)
+{
+	X -= point.X;
+	Y -= point.Y;
+	return *this;
+}
+
+Point2D &Point2D::operator+=(double value)
+{
+	X += value;
+	Y += value;
+	return *this;
+}
+
+Point2D &Point2D::operator-=(double value)
+{
+	X -= value;
+	Y -= value;
+	return *this;
+}
+
+Point2D &Point2D::operator*=(double value)
+{
+	X *= value;
+	Y *= value;
+	return *this;
+}
+
+Point2D &Point2D::operator/=(double value)
+{
+	X /= value;
+	Y /= value;
+	return *this;
+}
+
+Point2D Point2D::operator+(Point2D &point)
+{
+	return Point2D(X + point.X, Y + point.Y);
+}
+
+Point2D Point2D::operator-(Point2D &point)
+{
+	return Point2D(X - point.X, Y - point.Y);
+}
+
+Point2D Point2D::operator+(double value)
+{
+	return Point2D(X + value, Y + value);
+}
+
+Point2D Point2D::operator-(double value)
+{
+	return Point2D(X - value, Y - value);
+}
+
+Point2D Point2D::operator*(double value)
+{
+	return Point2D(X * value, Y * value);
+}
+
+Point2D Point2D::operator/(double value)
+{
+	return Point2D(X / value, Y / value);
+}
+
+Point3D::Point3D()
+{
+	X = 0;
+	Y = 0;
+	Z = 0;
+}
+
+Point3D::Point3D(double x, double y, double z)
+{
+	X = x;
+	Y = y;
+	Z = z;
+}
+
+Point3D::Point3D(const Point3D &point)
+{
+	X = point.X;
+	Y = point.Y;
+	Z = point.Z;
+}
+
+Point3D::~Point3D()
+{
+}
+
+double Point3D::Distance(Point3D &pt1, Point3D &pt2)
+{
+	double x = pt1.X - pt2.X;
+	double y = pt1.Y - pt2.Y;
+	double z = pt1.Z - pt2.Z;
+	return sqrt(x * x + y * y + z * z);
+}
+
+Point3D &Point3D::operator=(const Point3D &point)
+{
+	X = point.X;
+	Y = point.Y;
+	Z = point.Z;
+	return *this;
+}
+
+Point3D &Point3D::operator+=(Point3D &point)
+{
+	X += point.X;
+	Y += point.Y;
+	Z += point.Z;
+	return *this;
+}
+
+Point3D &Point3D::operator-=(Point3D &point)
+{
+	X -= point.X;
+	Y -= point.Y;
+	Z -= point.Z;
+	return *this;
+}
+
+Point3D &Point3D::operator+=(double value)
+{
+	X += value;
+	Y += value;
+	Z += value;
+	return *this;
+}
+
+Point3D &Point3D::operator-=(double value)
+{
+	X -= value;
+	Y -= value;
+	Z -= value;
+	return *this;
+}
+
+Point3D &Point3D::operator*=(double value)
+{
+	X *= value;
+	Y *= value;
+	Z *= value;
+	return *this;
+}
+
+Point3D &Point3D::operator/=(double value)
+{
+	X /= value;
+	Y /= value;
+	Z /= value;
+	return *this;
+}
+
+Point3D Point3D::operator+(Point3D &point)
+{
+	return Point3D(X + point.X, Y + point.Y, Z + point.Z);
+}
+
+Point3D Point3D::operator-(Point3D &point)
+{
+	return Point3D(X - point.X, Y - point.Y, Z - point.Z);
+}
+
+Point3D Point3D::operator+(double value)
+{
+	return Point3D(X + value, Y + value, Z + value);
+}
+
+Point3D Point3D::operator-(double value)
+{
+	return Point3D(X - value, Y - value, Z - value);
+}
+
+Point3D Point3D::operator*(double value)
+{
+	return Point3D(X * value, Y * value, Z * value);
+}
+
+Point3D Point3D::operator/(double value)
+{
+	return Point3D(X / value, Y / value, Z / value);
+}
 
 Matrix3D::Matrix3D()
 {
@@ -101,16 +327,7 @@ bool Matrix3D::Inverse()
     return true;
 }
 
-void Matrix3D::Scale(Vector3D scale)
-{
-	Matrix3D mat;
-	mat.m[m00] = scale.X;
-	mat.m[m11] = scale.Y;
-	mat.m[m22] = scale.Z;
-
-	*this *= mat;
-}
-
+/*
 void Matrix3D::Rotate(double angle, Vector3D axis)
 {
 	double rad = angle * 3.141592 / 180.0;
@@ -130,16 +347,7 @@ void Matrix3D::Rotate(double angle, Vector3D axis)
 
 	*this *= mat;
 }
-
-void Matrix3D::Translate(Vector3D offset)
-{
-	Matrix3D mat;
-	mat.m[m03] = offset.X;
-	mat.m[m13] = offset.Y;
-	mat.m[m23] = offset.Z;
-
-	*this *= mat;
-}
+*/
 
 Point3D Matrix3D::Transform(Point3D point)
 {
@@ -151,17 +359,7 @@ Point3D Matrix3D::Transform(Point3D point)
     return result;
 }
 
-Vector3D Matrix3D::Transform(Vector3D vector)
-{
-	Vector3D result;
-	result.X = m[m00]*vector.X + m[m01]*vector.Y + m[m02]*vector.Z + m[m03];
-	result.Y = m[m10]*vector.X + m[m11]*vector.Y + m[m12]*vector.Z + m[m13];
-	result.Z = m[m20]*vector.X + m[m21]*vector.Y + m[m22]*vector.Z + m[m23];
-
-    return result;
-}
-
-void Matrix3D::SetTransform(Point3D point, Vector3D angle)
+void Matrix3D::SetTransform(Point3D point, Point3D angle)
 {
 	double Cx = cos(angle.X * 3.141592 / 180.0);
 	double Cy = cos(angle.Y * 3.141592 / 180.0);

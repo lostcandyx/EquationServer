@@ -10,7 +10,13 @@ class EquationSolver
 {
 private:
     Point3D Coordinate;
-    AngleSet Angle; 
+    AngleSet Servo; 
+
+    Hexagon Actuator;
+    Hexagon Platform;
+
+    bool IsActuatorReady;
+    bool IsPlatformReady;
 
 public:
     EquationSolver();
@@ -18,9 +24,15 @@ public:
     EquationSolver(Point3D c);
     ~EquationSolver();
 
-    void DataInput(double x,double y,double z);
-    void DataInput(Point3D c);
-    AngleSet DataOutput();
+    void SetCoordinate(double x,double y,double z);
+    void SetCoordinate(Point3D c);
+    AngleSet GetServo();
+
+    void SetActuator(Hexagon input);
+    void SetPlatform(Hexagon input);
+
+    Hexagon GetActuator();
+    Hexagon GetPlatform();
 
     bool Process(); 
 };

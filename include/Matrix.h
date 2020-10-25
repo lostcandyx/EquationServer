@@ -2,7 +2,7 @@
 #define _MATRIX_H_
 
 #include <math.h>
-
+#include <stdio.h>
 struct Anglex6
 {
     double a[6];
@@ -68,6 +68,8 @@ class Point3D
 	Point3D operator-(double value);
 	Point3D operator*(double value);
 	Point3D operator/(double value);
+
+	void Print();
 };
 
 class Matrix3D
@@ -108,10 +110,13 @@ public:
 	//void Rotate(double angle, Vector3D axis);
 	Point3D Transform(Point3D point);
 	void SetTransform(Point3D point, Point3D angle);
-
+	void SetOnlyMove(Point3D point);
+	void SetOnlyRotate(Point3D angle);
 	Matrix3D &operator=(const Matrix3D &mat);
 	Matrix3D &operator*=(const Matrix3D &mat);
 	Matrix3D operator*(const Matrix3D &mat);
+
+	void Print();
 };
 
 

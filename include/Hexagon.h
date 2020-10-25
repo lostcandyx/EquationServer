@@ -7,7 +7,7 @@ class Hexagon
 {
 private:
     Point3D Center;
-    Point3D Vertex[6];
+    Matrix3D Vertex[6];
     double Radius;
     double Angle;
 public:
@@ -17,6 +17,8 @@ public:
     ~Hexagon();
 
     void ComputeVertex();
+    Matrix3D GetVertex(int index);
+    Point3D GetVertexPoint(int index);
 };
 
 #endif

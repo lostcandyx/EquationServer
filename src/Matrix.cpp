@@ -227,6 +227,11 @@ Point3D Point3D::operator/(double value)
 	return Point3D(X / value, Y / value, Z / value);
 }
 
+void Point3D::Print()
+{
+	printf("[ %.3lf , %.3lf , %.3lf ] \n",X,Y,Z);
+}
+
 Matrix3D::Matrix3D()
 {
 	Identity();
@@ -330,7 +335,7 @@ bool Matrix3D::Inverse()
 /*
 void Matrix3D::Rotate(double angle, Vector3D axis)
 {
-	double rad = angle * 3.141592 / 180.0;
+	double rad = angle;
 	double C = cos(rad);
 	double S = sin(rad);
 	Matrix3D mat;
@@ -361,12 +366,12 @@ Point3D Matrix3D::Transform(Point3D point)
 
 void Matrix3D::SetTransform(Point3D point, Point3D angle)
 {
-	double Cx = cos(angle.X * 3.141592 / 180.0);
-	double Cy = cos(angle.Y * 3.141592 / 180.0);
-	double Cz = cos(angle.Z * 3.141592 / 180.0);
-	double Sx = sin(angle.X * 3.141592 / 180.0);
-	double Sy = sin(angle.Y * 3.141592 / 180.0);
-	double Sz = sin(angle.Z * 3.141592 / 180.0);
+	double Cx = cos(angle.X);
+	double Cy = cos(angle.Y);
+	double Cz = cos(angle.Z);
+	double Sx = sin(angle.X);
+	double Sy = sin(angle.Y);
+	double Sz = sin(angle.Z);
 	
 	Identity();
 	m[0] = Cz * Cy;
@@ -381,6 +386,35 @@ void Matrix3D::SetTransform(Point3D point, Point3D angle)
     m[9] = Cy * Sx;
     m[10] = Cy * Cx;
     m[11] = point.Z;
+}
+
+void Matrix3D::SetOnlyMove(Point3D point)
+{
+	Identity();
+	m[3] = point.X;
+    m[7] = point.Y;
+    m[11] = point.Z;
+}
+
+void Matrix3D::SetOnlyRotate(Point3D angle)
+{
+	double Cx = cos(angle.X);
+	double Cy = cos(angle.Y);
+	double Cz = cos(angle.Z);
+	double Sx = sin(angle.X);
+	double Sy = sin(angle.Y);
+	double Sz = sin(angle.Z);
+	
+	Identity();
+	m[0] = Cz * Cy;
+    m[1] = Cz * Sy * Sx - Sz * Cx;
+    m[2] = Cz * Sy * Cx + Sz * Sx;
+    m[4] = Sz * Cy;
+    m[5] = Sz * Sy * Sx + Cz * Cx;
+    m[6] = Sz * Sy * Cx - Cz * Sx;
+    m[8] = -Sy;
+    m[9] = Cy * Sx;
+    m[10] = Cy * Cx;
 }
 
 Matrix3D & Matrix3D::operator = (const Matrix3D &mat)
@@ -412,5 +446,18 @@ Matrix3D Matrix3D::operator * (const Matrix3D &mat)
         }
     }
 
+	result.m[m00] = result.m[m00] - 1;
+	result.m[m11] = result.m[m11] - 1;
+	result.m[m22] = result.m[m22] - 1;
+	result.m[m33] = result.m[m33] - 1;
+
 	return result;
+}
+
+void Matrix3D::Print()
+{
+	printf("| %.3lf , %.3lf , %.3lf , %.3lf | \n",m[m00],m[m01],m[m02],m[m03]);
+	printf("| %.3lf , %.3lf , %.3lf , %.3lf | \n",m[m10],m[m11],m[m12],m[m13]);
+	printf("| %.3lf , %.3lf , %.3lf , %.3lf | \n",m[m20],m[m21],m[m22],m[m23]);
+	printf("| %.3lf , %.3lf , %.3lf , %.3lf | \n",m[m30],m[m31],m[m32],m[m33]);
 }
